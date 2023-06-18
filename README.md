@@ -5,3 +5,6 @@ Contando con que los recursos son ilimitados escogería trabajar con Amazon Sage
 Antes de llevar a producción cualquier proyecto de ML debemos tener en cuenta los siguientes pasos. 
 
 ![](images\ml-lifecycle-phases.png)
+
+
+primero:
