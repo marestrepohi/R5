@@ -29,3 +29,38 @@ __Posible sistema para poner en producción y monitorear los diferentes modelos_
 
 
 como se aprecia en la imagen un sistema de MLOPS consta de varios pasos, comenzando con la recopilación de datos de diversas fuentes, seguida de la preparación de los datos para su uso en el entrenamiento del modelo. Una vez preparados, se procede al entrenamiento del modelo utilizando algoritmos que aprenden de los datos y generan un modelo. Después, se evalúa el rendimiento del modelo utilizando nuevos datos para comprobar su capacidad de predicción. Una vez que el modelo ha sido evaluado, se implementa para su uso en producción, lo que implica empaquetarlo y hacerlo accesible a los usuarios. Este proceso puede estar propenso a errores. Sin embargo, la entrega continua y la automatización pueden mejorar este proceso al automatizar los pasos de todo el sistema, permitiendo una implementación más rápida y confiable de nuevos modelos. Esto ayuda a reducir errores y mejorar la eficiencia general del sistema de ML.
+
+
+## __MLOPS Con AWS Y SageMaker__
+
+Teniendo en cuenta los requeremientos del problema nos vamos a enforcar en el proceso de productivizar y monitorear estos modelos.
+
+
+El siguiente diagrama ilustra el proceso y la arqutectura para el sistema de MLOPS.
+
+![](images/deep_dive.png)
+
+Para productivizar y monitorear estos modelos planteó un pipeline que sirve para la compilación, entrenamiento e implementación de modelos de aprendizaje automático en Amazon SageMaker.
+
+Con lleva los siguientes pasos: 
+
+-	Preparación de datos: los datos se preparan para el entrenamiento del modelo limpiándolos y transformándolos. Esto incluye tareas como la eliminación de valores atípicos, la imputación de valores faltantes y la normalización de los datos.
+-	Entrenamiento de modelos: un modelo se entrena utilizando los datos preparados. El modelo puede ser un modelo de regresión lineal simple o un modelo complejo de aprendizaje profundo.
+-	Evaluación del modelo: el modelo entrenado se evalúa para evaluar su rendimiento. Esto se hace alimentando el modelo con nuevos datos y viendo qué tan bien predice el resultado.
+-	Implementación del modelo: el modelo entrenado se implementa en producción para que pueda usarse para hacer predicciones.
+
+
+Los servicios de AWS que se utilizan en la Pipeline son:
+
+- Amazon S3: S3 se utiliza para almacenar los datos y los artefactos del modelo.
+- Amazon SageMaker: SageMaker se utiliza para crear, entrenar e implementar el modelo.
+- Amazon CloudWatch: CloudWatch se utiliza para monitorear la canalización y el modelo.
+- Amazon CodeCommit: CodeCommit se utiliza para almacenar el código fuente de la canalización.
+
+Además, en el pipeline las opciones de personalización incluyen:
+
+El tipo de modelo que se entrena.
+Los hiperparámetros que se utilizan para entrenar el modelo.
+Las métricas que se utilizan para evaluar el modelo.
+La configuración de implementación.
+
