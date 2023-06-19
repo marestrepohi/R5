@@ -33,10 +33,41 @@ como se aprecia en la imagen un sistema de MLOPS consta de varios pasos, comenza
 
 ## __MLOPS Con AWS Y SageMaker__
 
-Teniendo en cuenta los requeremientos del problema nos vamos a enforcar en el proceso de productivizar y monitorear estos modelos.
+Teniendo en cuenta los requeremientos del problema nos vamos a enforcar en el proceso de productivizar y monitorear estos modelos para la inferencia en tiempo real.
+
+Los pasos necesarios para crear e implementar un modelo de ML los vamos a realizar con  Amazon SageMaker.
+
+Los pipelines de SageMaker son el primer servicio de integración y entrega continuas (CI/CD) especialmente diseñado para ML.
+
+un pipeline para ML esta compuesto de esta manera:
+
+![](images/pipeline%20sagemaker.png)
 
 
-El siguiente diagrama ilustra el proceso y la arqutectura para el sistema de MLOPS.
+los sistemas de MLOPS tienen dos grandes componentes uno de construcción y uno de implementación.
+
+A continuación vemos un diagrama necesarios para generar el componenete de la construcción:
+
+![](images/template_build.jpg)
+
+En este componente se dan los procesos de preparación de datos, entrenamiento de modelos y evaluación del modelo, luego se guarda el mejor modelo entrenado en un bucket de S3 y en el registro de modelos de SageMaker.  para usarlo en la etapa de implementación. 
+
+Todo el codigo se obtiene de un repositorio de CodeCommit donde se almacena el código fuente del pipeline el cual tiene scripts predinifdos ejecutados en python.
+
+Despues en el componenete de la implementacion se tienen los siguente pasos:
+
+![](images/template_deploy.jpg)
+
+
+Se obtiene el modelo registrado y guardado ya que es el modelo disponible para su uso en producción.
+
+para la inferencia en tiempo real. Esta plantilla reconoce cambios en el registro del modelo. Cuando se registra y aprueba una nueva versión del modelo, se inicia automáticamente una implementación.
+
+La plantilla aprovisiona un repositorio de CodeCommit con archivos de configuración para especificar los pasos de implementación del modelo, plantillas de AWS CloudFormation para definir puntos de enlace como infraestructura y código fuente para probar el punto de enlace.
+
+
+
+Uniendo los dos compnentes tenemos el siguiente diagrama que ilustra el proceso y la arquitectura para el sistema de MLOPS.
 
 ![](images/deep_dive.png)
 
@@ -50,12 +81,20 @@ Con lleva los siguientes pasos:
 -	Implementación del modelo: el modelo entrenado se implementa en producción para que pueda usarse para hacer predicciones.
 
 
-Los servicios de AWS que se utilizan en la Pipeline son:
+Los servicios de AWS que se utilizan en el Pipeline son:
 
-- Amazon S3: S3 se utiliza para almacenar los datos y los artefactos del modelo.
-- Amazon SageMaker: SageMaker se utiliza para crear, entrenar e implementar el modelo.
-- Amazon CloudWatch: CloudWatch se utiliza para monitorear la canalización y el modelo.
-- Amazon CodeCommit: CodeCommit se utiliza para almacenar el código fuente de la canalización.
+- AWS S3: se utiliza para almacenar artefactos, incluidos los artefactos de CodePipeline y CodeBuild, modelo final , y cualquier artefacto generado a partir del pipeline de SageMaker.
+
+- AWS SageMaker: es el servicio se utiliza para crear, entrenar e implementar el modelo.
+
+- AWS CloudWatch: CloudWatch se utiliza para monitorear el pipeline y el modelo.
+
+- AWS CodeCommit: es un repositorio que se utiliza para almacenar el código fuente para la generacion del pipeline, ademas contiene código de muestra que implementa modelos en puntos de enlace en entornos de preparación y producción.
+
+- AWS CodePipeline: contiene los codigos en python necesarios para generar los pasos de origen, compilación, implementación en preparación y producción.
+
+Hay varios pasos de aprobación manual entre los pasos de preparación y producción, ya que generalmente hay cambios de versiones de librerias o en las fuentes de datos por lo que un ingeniero de MLOps debe aprobar el modelo antes de implementarlo en producción.
+
 
 Además, en el pipeline las opciones de personalización incluyen:
 
@@ -63,4 +102,5 @@ El tipo de modelo que se entrena.
 Los hiperparámetros que se utilizan para entrenar el modelo.
 Las métricas que se utilizan para evaluar el modelo.
 La configuración de implementación.
+
 
