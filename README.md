@@ -115,7 +115,12 @@ La configuración de implementación.
 
 Para este caso contamos con varios endpoints para varios modelos
 
-Amazon SageMaker real-time endpoints son una forma rentable de alojar una gran cantidad de modelos de aprendizaje automático que utilizan el mismo marco de ML. Pueden atender el tráfico de manera eficiente con menos recursos y menos costos, Los terminales multimodelo admiten modelos respaldados por CPU y GPU, y pueden compartir recursos de memoria en el tiempo entre sus modelos. 
+Hay varios tipos de end ponit en SageMaker
+
+![](images/endpoints.png)
+
+
+Los endpoints son una forma de alojar una gran cantidad de modelos de aprendizaje automático que utilizan el mismo marco de ML. Pueden atender el tráfico de manera eficiente con menos recursos y costos, ademas pueden compartir recursos de memoria en el tiempo entre sus modelos. 
 
 para estos endpoints hay varias opciones de escalado. 
 
@@ -128,17 +133,14 @@ son una forma rentable de alojar una gran cantidad de modelos de aprendizaje aut
 
 -La tercera opción es el escalado programado, que permite programaciones únicas o recurrentes. 
 
-Hay varios tipos de end ponit en SageMaker
-
-![](images/endpoints.png)
-
-
 Se recomienda combinar estas opciones de escalado para mejorar la resiliencia. ademas hay que tener encuenta las características del sistema y los patrones de tráfico. El proceso se simplifica con el uso de la herramienta de recomendación Inference, una función integrada en SageMaker que ayuda a dimensionar correctamente y comparar.
 
 
 refencia de proceso 
 
 * [Ejemplo escalabilidad](https://github.com/aws/amazon-sagemaker-examples/blob/main/sagemaker-inference-recommender/auto-scaling/optimize_endpoint_scaling.ipynb)
+
+* https://aws.amazon.com/getting-started/hands-on/machine-learning-tutorial-deploy-model-to-real-time-inference-endpoint/
 
 ## Referencias:
 
@@ -148,3 +150,6 @@ refencia de proceso
 
 * https://aws.amazon.com/blogs/machine-learning/configuring-autoscaling-inference-endpoints-in-amazon-sagemaker/
 
+* https://docs.aws.amazon.com/sagemaker/latest/dg/multi-model-endpoints.html
+
+* https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html
