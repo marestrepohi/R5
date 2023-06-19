@@ -67,7 +67,7 @@ La plantilla aprovisiona un repositorio de CodeCommit con archivos de configurac
 
 
 
-Uniendo los dos compnentes tenemos el siguiente diagrama que ilustra el proceso y la arquitectura para el sistema de MLOPS.
+Uniendo los dos componentes tenemos el siguiente diagrama que ilustra el proceso y la arquitectura para el sistema de MLOPS.
 
 ![](images/deep_dive.png)
 
