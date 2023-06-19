@@ -46,7 +46,7 @@ un pipeline para ML esta compuesto de esta manera:
 
 los sistemas de MLOPS tienen dos grandes componentes uno de construcción y uno de implementación.
 
-A continuación vemos un diagrama necesarios para generar el componenete de la construcción:
+A continuación vemos un diagrama necesarios para generar el componente de la construcción:
 
 ![](images/template_build.jpg)
 
@@ -54,9 +54,9 @@ En este componente se dan los procesos de preparación de datos, entrenamiento d
 
 Todo el codigo se obtiene de un repositorio de CodeCommit donde se almacena el código fuente del pipeline el cual tiene scripts predinifdos ejecutados en python.
 
-Despues en el componenete de la implementacion se tienen los siguente pasos:
+Despues en el componente de la implementacion se tienen los siguente pasos:
 
-![](images/template_deploy.jpg)
+![](images/deploy.svg)
 
 
 Se obtiene el modelo registrado y guardado ya que es el modelo disponible para su uso en producción.
@@ -103,4 +103,48 @@ Los hiperparámetros que se utilizan para entrenar el modelo.
 Las métricas que se utilizan para evaluar el modelo.
 La configuración de implementación.
 
+## Codigo practico para hacer y entender pipelines en SageMaker
+
+* [MLOps template for model training and deployment](https://github.com/aws/amazon-sagemaker-examples/tree/main/end_to_end/fraud_detection)
+
+* [Codigo de ejemplo de creacion de pipeline](/ejemplo_pipeline)
+
+
+
+## Escalabilidad
+
+Para este caso contamos con varios endpoints para varios modelos
+
+Amazon SageMaker real-time endpoints son una forma rentable de alojar una gran cantidad de modelos de aprendizaje automático que utilizan el mismo marco de ML. Pueden atender el tráfico de manera eficiente con menos recursos y menos costos, Los terminales multimodelo admiten modelos respaldados por CPU y GPU, y pueden compartir recursos de memoria en el tiempo entre sus modelos. 
+
+para estos endpoints hay varias opciones de escalado. 
+
+son una forma rentable de alojar una gran cantidad de modelos de aprendizaje automático que utilizan el mismo marco de ML. Pueden atender el tráfico de manera eficiente con menos recursos y menos costos, Los terminales multimodelo admiten modelos respaldados por CPU y GPU, y pueden compartir recursos de memoria en el tiempo entre sus modelos. 
+
+
+-La primera opción es TargetTracking, donde un valor objetivo que representa la utilización promedio o el rendimiento de un solo host se establece como un umbral de escala. 
+
+-La segunda opción es StepScaling, que escala según el tamaño de una infracción de alarma. 
+
+-La tercera opción es el escalado programado, que permite programaciones únicas o recurrentes. 
+
+Hay varios tipos de end ponit en SageMaker
+
+![](images/endpoints.png)
+
+
+Se recomienda combinar estas opciones de escalado para mejorar la resiliencia. ademas hay que tener encuenta las características del sistema y los patrones de tráfico. El proceso se simplifica con el uso de la herramienta de recomendación Inference, una función integrada en SageMaker que ayuda a dimensionar correctamente y comparar.
+
+
+refencia de proceso 
+
+* [Ejemplo escalabilidad](https://github.com/aws/amazon-sagemaker-examples/blob/main/sagemaker-inference-recommender/auto-scaling/optimize_endpoint_scaling.ipynb)
+
+## Referencias:
+
+* https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-sdk.html
+
+* https://github.com/aws/amazon-sagemaker-examples
+
+* https://aws.amazon.com/blogs/machine-learning/configuring-autoscaling-inference-endpoints-in-amazon-sagemaker/
 
